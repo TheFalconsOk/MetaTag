@@ -22,11 +22,22 @@ def MetaTagUpdater(rootFolder, targetGenre, targetTag):
         print(genres)
         tags = normalizeList(data.get("tags"))
 
+        #check for target Genre
         if any(targetGenre.lower() in genre.lower() for genre in genres):
-            print(tags)
-            if any(targetTag.lower() in tag.lower() for tag in tags):
-                print(tags)
-                counter += 1
+            #check for target tag
+            if not any(targetTag.lower() in tag.lower() for tag in tags):
+
+                print("b")
+                #update tags
+                tags.append(targetTag)
+                data["tags"] = tags
+
+                print(f"Adding tag to: {metaFile}")
+
+                with metaFile.open("w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
+
+                
 
 
         

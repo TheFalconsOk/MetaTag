@@ -6,7 +6,7 @@ A file scraper looking for Genre in the metafile and adding tags
 - [x]  Scrap paths for JSONs.
 - [x]  Query JSON for genre.
 - [x]  Query for tag.
-- [ ]  Update tag if needed.
+- [X]  Update tag if needed.
 - Optional extras
 - [ ]  Report changes
 - [ ]  allow multiple tags
