@@ -8,9 +8,7 @@ from pathlib import Path
 #Function
 def MetaTagUpdater(rootFolder, targetGenre, targetTag):
     folderData = scanFolder(rootFolder)
-    counter = 0
     for metaFile in folderData.rglob("metadata.json"):
-        #check for taget genre
         try:
             with metaFile.open("r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -19,22 +17,22 @@ def MetaTagUpdater(rootFolder, targetGenre, targetTag):
             return False
         
         genres = normalizeList(data.get("genre") or data.get("genres"))
-        print(genres)
         tags = normalizeList(data.get("tags"))
 
+        #check for target Genre
         if any(targetGenre.lower() in genre.lower() for genre in genres):
-            print(tags)
-            if any(targetTag.lower() in tag.lower() for tag in tags):
-                print(tags)
-                counter += 1
+            #check for target tag
+            if not any(targetTag.lower() in tag.lower() for tag in tags):
+                #update tags
+                tags.append(targetTag)
+                data["tags"] = tags
 
+                print(f"Adding tag to: {metaFile}")
 
-        
-
-        
-        
-    print("your args were - " + rootFolder + ", "+ targetGenre + ", "+ targetTag +" and you have " + str(counter) + " " + targetGenre)
-
+                with metaFile.open("w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
+          
+ 
 def scanFolder(rootFolder):
     return Path(rootFolder)
 
