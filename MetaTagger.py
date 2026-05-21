@@ -22,17 +22,15 @@ def MetaTagUpdater(rootFolder, targetGenre, targetTag):
         print(genres)
         tags = normalizeList(data.get("tags"))
 
-        if any(targetGenre in genre for genre in genres):
+        if any(targetGenre.lower() in genre.lower() for genre in genres):
             counter += 1
             print(genres)
+        else:
+            return False
 
-        #genreFound = any(
-        #str(g).lower() == targetGenre.lower()
-        #for g in genres
-        #)
+        
 
-        #if not genreFound:
-            #return False
+        
         
     print("your args were - " + rootFolder + ", "+ targetGenre + ", "+ targetTag +" and you have " + str(counter) + " " + targetGenre)
 
