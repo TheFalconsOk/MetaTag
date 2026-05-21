@@ -7,8 +7,14 @@ from pathlib import Path
 
 #Function
 def MetaTagUpdater(rootFolder, targetGenre, targetTag):
-    print("your args were - " + rootFolder + ", "+ targetGenre + ", "+ targetTag)
+    folderData = scanFolder(rootFolder)
+    counter = 0
+    for metaFile in folderData.rglob("metadata.json"):
+        counter += 1
+    print("your args were - " + rootFolder + ", "+ targetGenre + ", "+ targetTag +" and you have " + str(counter) + " Files")
 
+def scanFolder(rootFolder):
+    return Path(rootFolder)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
